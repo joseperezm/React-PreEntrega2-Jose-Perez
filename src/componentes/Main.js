@@ -1,10 +1,10 @@
-// Las imágenes se pueden agregar de manera tradicional, pero usando como root la carpeta public.
-// O se pueden agregar importándolas de la carpeta src.
+import ItemListContainer from "./ItemListContainer";
 
 function Main () {
     return (
         <>
         <main id="main" className="main text-center mb-5">
+            <ItemListContainer greeting="¡Hola! Bienvenido..."/>
             <img src="/logo.png" alt="" className="logo"/>
         </main>
         </>
