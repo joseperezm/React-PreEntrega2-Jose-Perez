@@ -1,4 +1,4 @@
-import NavLinks from "./NavLinks";
+import NavLinks from "./Links";
 
 function Footer () {
     return (

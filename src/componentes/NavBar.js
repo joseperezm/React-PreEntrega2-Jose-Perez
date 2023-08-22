@@ -1,16 +1,15 @@
-import NavLinks from "./NavLinks";
+import Links from "./Links";
 import CartWidget from "./CartWidget";
+import { Link } from 'react-router-dom'
 
 function NavBar () {
     return (
         <>
         <nav id="NavBar" className="NavBar">
-            <h3>
-            <a href="/">
-             ADBJJ Store
-            </a>
-            </h3>
-            <NavLinks />
+            <Link to='/' className="tdn">
+                <h3>ADBJJ Store</h3>
+            </Link>
+            <Links />
             <CartWidget />
         </nav>
         </>

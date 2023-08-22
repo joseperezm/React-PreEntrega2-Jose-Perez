@@ -25,9 +25,10 @@ footer {
     text-align: center;
 }
 
-.NavLinks {
+.Links {
     display: flex;
     justify-content: space-around;
+    gap: 10px;
 }
 
 main {
@@ -65,4 +66,11 @@ main {
 
 .saludo {
     text-align: center;
+}
+
+.tdn {
+    text-decoration: none;
+}
+.Option {
+    text-decoration: none;
 }

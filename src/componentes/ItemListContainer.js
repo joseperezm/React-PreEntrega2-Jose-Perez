@@ -1,51 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import ItemList from './ItemList';
-function ItemListContainer(props) {
-  const [items, setItems] = useState([]);
+import { useState, useEffect} from 'react'
+import { getProducts, getProductsByCategory } from './asyncMock.js'
+import ItemList from './ItemList.js'
 
-  useEffect(() => {
-    const fetchItems = () => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          const mockItems = [
-            {
-              id: 1,
-              name: 'Kimono blanco',
-              price: 10,
-              description: 'Kimono blanco para artes marciales',
-              image: 'https://placehold.co/600x400/f6f4f1/black?text=Kimono+Blanco'
-            },
-            {
-              id: 2,
-              name: 'Kimono azul',
-              price: 20,
-              description: 'Kimono azul para artes marciales',
-              image: 'https://placehold.co/600x400/blue/white?text=Kimono+Azul'
-            },
-            {
-              id: 3,
-              name: 'Kimono negro',
-              price: 30,
-              description: 'Kimono negro para artes marciales',
-              image: 'https://placehold.co/600x400/black/white?text=Kimono+Negro'
-            }
-          ];          
-          resolve(mockItems);
-        }, 2000);
-      });
-    };
+import { useParams } from 'react-router-dom'
 
-    fetchItems().then(data => {
-      setItems(data);
-    });
-  }, []);
-
-  return (
-    <>
-      <h2 className="text-center mb-5">{props.greeting}</h2>
-      <ItemList items={items} />
-    </>
-  );
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export default ItemListContainer;
+const ItemListContainer = ({ greeting }) => {
+  const [products, setProducts] = useState([])
+
+  const { categoryId } = useParams()
+
+  useEffect(() => {
+    const asyncFunc = categoryId ? getProductsByCategory : getProducts
+
+    asyncFunc(categoryId)
+    .then(response => {
+      setProducts(response)
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }, [categoryId])
+
+  const updatedGreeting = categoryId
+    ? `${capitalizeFirstLetter(categoryId)}`
+    : greeting;
+
+  return (
+    <div>
+      <h1>{updatedGreeting}</h1>
+      <ItemList products={products}/>
+    </div>
+  )
+}
+
+export default ItemListContainer
