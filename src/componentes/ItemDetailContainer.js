@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import ItemList from './ItemList';
-function ItemListContainer(props) {
-  const [items, setItems] = useState([]);
+import ItemDetail from './ItemDetail'; // Ajusta la ruta según tu estructura de archivos
+
+function ItemDetailContainer(props) {
+  const [item, setItem] = useState(null);
+
+  const manejarAgregarAlCarrito = (cantidad) => {
+    console.log(`Agregados ${cantidad} elementos al carrito.`);
+  };
 
   useEffect(() => {
-    const fetchItems = () => {
+    const fetchItem = () => {
       return new Promise(resolve => {
         setTimeout(() => {
           const mockItems = [
@@ -29,23 +34,30 @@ function ItemListContainer(props) {
               description: 'Kimono negro para artes marciales',
               image: 'https://placehold.co/600x400/black/white?text=Kimono+Negro'
             }
-          ];          
-          resolve(mockItems);
-        }, 2000);
+          ];
+
+          // Simulación de obtener un ítem específico (puedes elegir uno manualmente)
+          const selectedItem = mockItems[0]; // Seleccionamos el primer ítem
+
+          resolve(selectedItem);
+        }, 2000); // Simulamos un retraso de 2 segundos
       });
     };
 
-    fetchItems().then(data => {
-      setItems(data);
+    fetchItem().then(data => {
+      setItem(data);
     });
   }, []);
 
+  if (!item) {
+    return <p>Cargando...</p>;
+  }
+
   return (
     <>
-      <h2 className="text-center mb-5">{props.greeting}</h2>
-      <ItemList items={items} />
+      <ItemDetail item={item} onAdd={manejarAgregarAlCarrito} />
     </>
   );
 }
 
-export default ItemListContainer;
+export default ItemDetailContainer;

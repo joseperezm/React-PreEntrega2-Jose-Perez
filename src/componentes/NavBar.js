@@ -5,7 +5,11 @@ function NavBar () {
     return (
         <>
         <nav id="NavBar" className="NavBar">
-            <h3>ADBJJ Store</h3>
+            <h3>
+            <a href="/">
+             ADBJJ Store
+            </a>
+            </h3>
             <NavLinks />
             <CartWidget />
         </nav>
